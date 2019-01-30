@@ -7,24 +7,20 @@ import "react-testing-library/cleanup-after-each";
 import Display from "./Display.js";
 
 describe("<Display />", () => {
-  it("locked and closed are equal to true & have red-led class", () => {
-    const { getByTestId } = render(<Display locked={true} closed={true} />);
+  it("should use red-led class when locked", () => {
+    const { getByText } = render(<Display locked={true} />);
 
-    const closed = getByTestId("closed");
-    const locked = getByTestId("locked");
+    const lockedDisplay = getByText(/locked/i);
 
-    expect({ closed, locked }).toHaveClass("red-led");
+    expect(lockedDisplay).toHaveClass("red-led");
 
-    expect(locked).toHaveTextContent(/Locked/i);
-    expect(closed).toHaveTextContent(/Closed/i);
+    expect(lockedDisplay).toHaveTextContent(/locked/i);
   });
 
-  it("open and unlocked are equal to true & have green-led class", () => {
-    const { getByTestId } = render(<Display locked={false} closed={false} />);
-    const open = getByTestId("open");
-    const unlocked = getByTestId("unlocked");
-
-    expect({ open, unlocked }).toHaveClass("green-led");
+  it("should use green-led class when unlocked", () => {
+    const { getByText } = render(<Display locked={false} />);
+    const lockedDisplay = getByText(/unlocked/i);
+    expect(lockedDisplay).toHaveClass("green-led");
   });
 
   it("unmounts component after each test", () => {
