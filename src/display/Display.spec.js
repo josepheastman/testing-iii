@@ -19,8 +19,12 @@ describe("<Display />", () => {
 
   it("should use green-led class when unlocked", () => {
     const { getByText } = render(<Display locked={false} />);
+
     const lockedDisplay = getByText(/unlocked/i);
+
     expect(lockedDisplay).toHaveClass("green-led");
+
+    expect(lockedDisplay).toHaveTextContent(/unlocked/i);
   });
 
   it("unmounts component after each test", () => {
